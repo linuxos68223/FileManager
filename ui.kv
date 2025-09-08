@@ -1,0 +1,52 @@
+#:import MDToolbar kivymd.uix.toolbar.MDTopAppBar
+#:import MDCard kivymd.uix.card.MDCard
+#:import MDLabel kivymd.uix.label.MDLabel
+< FileItem >:
+    size_hint_y: None
+    height: dp(96)
+    spacing: dp(8)
+    padding: dp(8)
+    MDCard:
+        size_hint_x: None
+        width: dp(96)
+        radius: [8]
+        elevation: 2
+        FitImage:
+            source: root.thumb if root.thumb else ""
+    BoxLayout:
+        orientation: "vertical"
+        MDLabel:
+            text: root.name
+            halign: "left"
+            valign: "middle"
+            shorten: True
+        MDLabel:
+            text: root.path
+            font_style: "Caption"
+            halign: "left"
+            shorten: True
+
+<MasterRoot>:
+    orientation: "vertical"
+    MDTopAppBar:
+        id: toolbar
+        title: "Master (Prototype)"
+        left_action_items: [["menu", lambda x: None]]
+    MDLabel:
+        id: status
+        size_hint_y: None
+        height: dp(30)
+        text: "Ready"
+        halign: "left"
+        padding: dp(12), 0
+    ScrollView:
+        MDGridLayout:
+            id: grid
+            cols: 1
+            adaptive_height: True
+            spacing: dp(6)
+            padding: dp(6)
+            # bind files to views
+            on_children: None
+            # we will fill from python by referencing MasterRoot.files
+    # hook: when files property updates, we will populate list via Factory
